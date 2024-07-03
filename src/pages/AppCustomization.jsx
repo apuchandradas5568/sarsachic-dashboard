@@ -32,9 +32,14 @@ const AppCustomization = () => {
 
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      if (file.type !== 'image/png') {
+        alert('Only PNG format is accepted for Home Banner.');
+        return;
+      }
       const reader = new FileReader();
       reader.addEventListener('load', () => setImageSrc(reader.result));
-      reader.readAsDataURL(e.target.files[0]);
+      reader.readAsDataURL(file);
       setIsModalOpen(true);
     }
   };
@@ -91,81 +96,80 @@ const AppCustomization = () => {
   return (
     <div className=" mx-auto p-4">
       <div>
-      <h1 className="text-2xl font-bold mb-8">Application Theme Customization</h1>
-      <div className='flex flex-col gap-8 md:flex-row lg:items-center'>
-        <div className="flex flex-col items-start gap-4">
-          <label className="block">Primary Color:</label>
+        <h1 className="text-2xl font-bold mb-8">Application Theme Customization</h1>
+        <div className='flex flex-col gap-8 md:flex-row lg:items-center'>
+          <div className="flex flex-col items-start gap-4">
+            <label className="block">Primary Color:</label>
+            <input
+              type="text"
+              value={color1}
+              onChange={handleColor1Change}
+              className="p-2 border rounded"
+            />
+            <div
+              className="w-10 h-10"
+              style={{ backgroundColor: color1 }}
+            ></div>
+          </div>
+          <div className="flex flex-col items-start gap-4">
+            <label className="block">Secondary Color:</label>
+            <input
+              type="text"
+              value={color2}
+              onChange={handleColor2Change}
+              className="p-2 border rounded"
+            />
+            <div
+              className="w-10 h-10"
+              style={{ backgroundColor: color2 }}
+            ></div>
+          </div>
+        </div>
+        <div className="my-8">
+          <label className="block mb-2">Home Banner Image (PNG, max 10MB):</label>
           <input
-            type="text"
-            value={color1}
-            onChange={handleColor1Change}
+            type="file"
+            accept="image/png"
+            onChange={handleImageChange}
             className="p-2 border rounded"
           />
-          <div
-            className="w-10 h-10"
-            style={{ backgroundColor: color1 }}
-          ></div>
+          <ReactModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
+            <div className="relative w-full h-64 mt-4">
+              {imageSrc && (
+                <Cropper
+                  image={imageSrc}
+                  crop={crop}
+                  zoom={zoom}
+                  aspect={4 / 5}
+                  onCropChange={setCrop}
+                  onZoomChange={setZoom}
+                  onCropComplete={onCropComplete}
+                />
+              )}
+              <button
+                onClick={handleCrop}
+                className="absolute top-2 right-2 p-2 bg-blue-500 text-white rounded-full"
+              >
+                <FaCrop />
+              </button>
+            </div>
+          </ReactModal>
+          {croppedImageUrl && (
+            <div className="w-72">
+              <h2 className="mt-4">Cropped Home Banner Image:</h2>
+              <img src={croppedImageUrl} alt="Cropped Home Banner" />
+            </div>
+          )}
         </div>
-        <div className="flex flex-col items-start gap-4">
-          <label className="block">Secondary Color:</label>
-          <input
-            type="text"
-            value={color2}
-            onChange={handleColor2Change}
-            className="p-2 border rounded"
-          />
-          <div
-            className="w-10 h-10"
-            style={{ backgroundColor: color2 }}
-          ></div>
-        </div>
-      </div>
-      <div className="my-8">
-        <label className="block mb-2">Banner Image (PNG, max 10MB):</label>
-        <input
-          type="file"
-          accept="image/png"
-          onChange={handleImageChange}
-          className="p-2 border rounded"
-        />
-        <ReactModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)}>
-          <div className="relative w-full h-64 mt-4">
-            {imageSrc && (
-              <Cropper
-                image={imageSrc}
-                crop={crop}
-                zoom={zoom}
-                aspect={4 / 5}
-                onCropChange={setCrop}
-                onZoomChange={setZoom}
-                onCropComplete={onCropComplete}
-              />
-            )}
-            <button
-              onClick={handleCrop}
-              className="absolute top-2 right-2 p-2 bg-blue-500 text-white rounded-full"
-            >
-              <FaCrop />
-            </button>
-          </div>
-        </ReactModal>
-        {croppedImageUrl && (
-          <div className="w-72">
-            <h2 className="mt-4">Cropped Image:</h2>
-            <img src={croppedImageUrl} alt="Cropped" />
-          </div>
-        )}
-      </div>
-      <button
-        onClick={handleSubmit}
-        className="mt-4 p-2 bg-blue-500 text-white rounded"
-      >
-        Submit
-      </button>
+        <button
+          onClick={handleSubmit}
+          className="mt-4 p-2 bg-blue-500 text-white rounded"
+        >
+          Submit
+        </button>
       </div>
 
-
-<hr className='mt-8' />
+      <hr className='mt-8' />
       {/* New Section for Theme Category Page */}
       <div className="my-8">
         <h2 className="text-xl font-bold mb-4">Theme Category Banner Change</h2>
@@ -180,10 +184,10 @@ const AppCustomization = () => {
           <option value="theme2">Theme 2</option>
           <option value="theme3">Theme 3</option>
         </select>
-        <label className="block mb-2">Theme Banner Image (PNG, max 10MB):</label>
+        <label className="block mb-2">Theme Banner Image (Any format, max 10MB):</label>
         <input
           type="file"
-          accept="image/png"
+          accept="image/*"
           onChange={handleThemeImageChange}
           className="p-2 border rounded"
         />
@@ -210,17 +214,17 @@ const AppCustomization = () => {
         </ReactModal>
         {themeCroppedImageUrl && (
           <div className="w-72">
-            <h2 className="mt-4">Cropped Theme Image:</h2>
-            <img src={themeCroppedImageUrl} alt="Cropped Theme" />
+            <h2 className="mt-4">Cropped Theme Banner Image:</h2>
+            <img src={themeCroppedImageUrl} alt="Cropped Theme Banner" />
           </div>
         )}
+        <button
+          onClick={handleThemeSubmit}
+          className="mt-4 p-2 bg-blue-500 text-white rounded"
+        >
+          Submit Theme
+        </button>
       </div>
-      <button
-        onClick={handleThemeSubmit}
-        className="mt-4 p-2 bg-blue-500 text-white rounded"
-      >
-        Submit Theme
-      </button>
     </div>
   );
 };
