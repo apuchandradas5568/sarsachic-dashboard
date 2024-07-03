@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 
-const users = [
+const users = 
+[
   {
     email: "avdheshkumar41237@gmail.com",
-    membership: "Active",
     productsOrdered: 5
   },
   {
     email: "johndoe@example.com",
-    membership: "Inactive",
     productsOrdered: 10
   },
   {
     email: "janedoe@example.com",
-    membership: "Active",
     productsOrdered: 15
   },
   {
@@ -23,22 +21,18 @@ const users = [
   },
   {
     email: "bob@example.com",
-    membership: "Active",
     productsOrdered: 8
   },
   {
     email: "charlie@example.com",
-    membership: "Active",
     productsOrdered: 12
   },
   {
     email: "david@example.com",
-    membership: "Inactive",
     productsOrdered: 7
   },
   {
     email: "eve@example.com",
-    membership: "Active",
     productsOrdered: 6
   }
 ];
@@ -107,7 +101,13 @@ const ManageUsers = () => {
                       <tr key={index}>
                         <td className="px-4 py-3 text-left text-sm font-normal text-gray-700">{index + 1}</td>
                         <td className="px-12 py-3 text-left text-sm font-normal text-gray-700">{user.email}</td>
-                        <td className="px-4 py-3 text-left text-sm font-normal text-gray-700">{user.membership}</td>
+                        <td class="px-4 py-2">
+                            <select id="membership" name="membership" class="mt-1 block w-full pl-3 pr-10 py-2 bg-white border border-gray-300 text-gray-700 sm:text-sm rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out">
+                              <option value="premium">Premium</option>
+                              <option value="normal">Normal</option>
+                              <option value="silver">Silver</option>
+                            </select>
+                        </td>
                         <td className="px-4 py-3 text-left text-sm font-normal text-gray-700">{user.productsOrdered}</td>
                         <td className="px-4 py-3 text-left">
                           <button>

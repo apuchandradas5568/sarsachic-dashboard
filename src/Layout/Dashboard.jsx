@@ -24,11 +24,11 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen flex flex-col md:flex-row ">
       {/* sidebar */}
-      <div className="md:w-56 shadow h-screen p-6">
+      <div className="md:w-56 shadow  h-full md:h-screen p-6">
         <DashSidebar />
       </div>
     
-        <div className='flex-1  p-6' >
+        <div className='flex-1 h-screen overflow-y-scroll  p-6' >
         {tab === 'admin-dashboard' && <AdminDashboard />}
         {tab === 'manage-users' && <ManageUsers />}
         {tab === 'add-products' && <AddProducts />}
