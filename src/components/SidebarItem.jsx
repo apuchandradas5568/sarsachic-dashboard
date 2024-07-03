@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React from "react";
 
 const SidebarItem = ({ active, children }) => {
   return (

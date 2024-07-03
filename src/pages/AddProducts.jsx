@@ -29,6 +29,7 @@ const attributesData = {
 };
 
 const AddProducts = () => {
+
   const [categories] = useState(categoriesData);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [attributes, setAttributes] = useState({});
@@ -52,6 +53,7 @@ const AddProducts = () => {
     oversized: false, 
   });
   const [imagePreviews, setImagePreviews] = useState([]);
+
 
   useEffect(() => {
     if (selectedCategory) {
