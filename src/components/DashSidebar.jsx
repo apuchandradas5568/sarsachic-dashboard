@@ -19,27 +19,27 @@ const DashSidebar = () => {
   return (
     <div>
       <Link to="/dashboard?tab=admin-dashboard">
-        <SidebarItem active={tab === "admin-dashboard" || !tab}>
+        <SidebarItem active={tab === "admin-dashboard" || false}>
         <FaTachometerAlt className="mr-2 text-xl " /> Dashboard
         </SidebarItem>
       </Link>
       <Link to="/dashboard?tab=manage-users">
-        <SidebarItem active={tab === "manage-users" || !tab}>
+        <SidebarItem active={tab === "manage-users" || false}>
         <FaUsers className="mr-2 text-xl " /> Manage Users
         </SidebarItem>
       </Link>
       <Link to="/dashboard?tab=add-products">
-        <SidebarItem active={tab === "add-products" || !tab}>
+        <SidebarItem active={tab === "add-products" || false}>
         <FaPlus className="mr-2 text-xl " /> Add Products
         </SidebarItem>
       </Link>
       <Link to="/dashboard?tab=manage-products">
-        <SidebarItem active={tab === "manage-products" || !tab}>
+        <SidebarItem active={tab === "manage-products" || false}>
         <FaBoxes className="mr-2 text-xl " />   Manage Products
         </SidebarItem>
       </Link>
       <Link to="/dashboard?tab=app-customization">
-        <SidebarItem active={tab === "app-customization" || !tab}>
+        <SidebarItem active={tab === "app-customization" || false}>
         <FaCog className="mr-2 text-xl " /> App Customization
         </SidebarItem>
       </Link>
