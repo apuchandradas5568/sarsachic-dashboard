@@ -49,8 +49,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Middle Section */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-        <OrderStatus title="Total Orders" count={2500} />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
         <OrderStatus title="Orders Pending" count={200} />
         <OrderStatus title="Orders In Process" count={300} />
         <OrderStatus title="Delivered Products" count={2000} />
