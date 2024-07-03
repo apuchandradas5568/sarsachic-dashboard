@@ -118,7 +118,7 @@ const AppCustomization = () => {
       </div>
       <button
         onClick={handleSubmit}
-        className="mt-4 p-2 bg-green-500 text-white rounded"
+        className="mt-4 p-2 bg-blue-500 text-white rounded"
       >
         Submit
       </button>
