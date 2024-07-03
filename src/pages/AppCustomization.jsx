@@ -220,7 +220,7 @@ const AppCustomization = () => {
         )}
         <button
           onClick={handleThemeSubmit}
-          className="mt-4 p-2 bg-blue-500 text-white rounded"
+          className="mt-4 p-2 block  bg-blue-500 text-white rounded"
         >
           Submit Theme
         </button>
