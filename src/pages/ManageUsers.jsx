@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import useAxiosPublic from '../../../sarsa-skleton/src/hooks/useAxios';
+import useAxiosPublic from '../hooks/useAxios';
 
 const ManageUsers = () => {
   const [currentPage, setCurrentPage] = useState(1);
