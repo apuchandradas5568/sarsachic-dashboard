@@ -33,11 +33,11 @@ const DashSidebar = () => {
         <FaPlus className="mr-2 text-xl " /> Add Products
         </SidebarItem>
       </Link>
-      <Link to="/dashboard?tab=manage-products">
-        <SidebarItem active={tab === "manage-products" || false}>
+       <Link to="/dashboard?tab=manage-products">
+         <SidebarItem active={tab === "manage-products" || false}>
         <FaBoxes className="mr-2 text-xl " />   Manage Products
-        </SidebarItem>
-      </Link>
+         </SidebarItem>
+       </Link>
       <Link to="/dashboard?tab=app-customization">
         <SidebarItem active={tab === "app-customization" || false}>
         <FaCog className="mr-2 text-xl " /> App Customization
