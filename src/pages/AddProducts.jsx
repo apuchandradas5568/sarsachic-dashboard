@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./AddProducts.css";
+import useAxiosPublic from "../hooks/useAxios";
 
 const categoriesData = [
   { id: "men", name: "Men" },
@@ -33,6 +34,7 @@ const AddProducts = () => {
   const [categories] = useState(categoriesData);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [attributes, setAttributes] = useState({});
+  const axios = useAxiosPublic()
   const [productData, setProductData] = useState({
     name: "",
     description: "",
@@ -91,31 +93,81 @@ const AddProducts = () => {
     setProductData({ ...productData, [name]: checked });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     console.log("Product data:", productData);
-    setProductData({
-      name: "",
-      description: "",
-      category: "",
-      style: "",
-      fabric: "",
-      fit: "",
-      sleeveLength: "",
-      ageGroup: "",
-      gender: "",
-      design: "",
-      price: "",
-      stockQuantity: "",
-      sizes: "",
-      colors: "",
-      images: [],
-      featured: false,
-      oversized: false,
-    });
-    setSelectedCategory("");
-    setImagePreviews([]);
+
+    const token =  localStorage.getItem('token')
+
+    console.log(token);
+
+     // Create FormData object
+     const formData = new FormData();
+     formData.append("name", productData.name);
+     formData.append("description", productData.description);
+     formData.append("category", productData.category);
+     formData.append("style", productData.style);
+     formData.append("fabric", productData.fabric);
+     formData.append("fit", productData.fit);
+     formData.append("sleeveLength", productData.sleeveLength);
+     formData.append("ageGroup", productData.ageGroup);
+     formData.append("gender", productData.gender);
+     formData.append("design", productData.design);
+     formData.append("price", productData.price);
+     formData.append("stockQuantity", productData.stockQuantity);
+     formData.append("sizes", productData.sizes);
+     formData.append("colors", productData.colors);
+     // Append each image file
+     productData.images.forEach((file, index) => {
+       formData.append(`images[${index}]`, file);
+     });
+     formData.append("featured", productData.featured.toString());
+     formData.append("oversized", productData.oversized.toString());
+ 
+
+   await axios.post('/users/add-product', {formData}, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`
+      },
+    })
+    .then((res)=> {
+      console.log(res);
+    })
+    .catch((error)=> {
+      console.log(error);
+    })
+
+
+
+
+
+
+
+
+
+    // setProductData({
+    //   name: "",
+    //   description: "",
+    //   category: "",
+    //   style: "",
+    //   fabric: "",
+    //   fit: "",
+    //   sleeveLength: "",
+    //   ageGroup: "",
+    //   gender: "",
+    //   design: "",
+    //   price: "",
+    //   stockQuantity: "",
+    //   sizes: "",
+    //   colors: "",
+    //   images: [],
+    //   featured: false,
+    //   oversized: false,
+    // });
+    // setSelectedCategory("");
+    // setImagePreviews([]);
   };
 
   return (

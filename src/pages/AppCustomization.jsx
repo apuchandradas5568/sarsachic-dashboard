@@ -116,7 +116,7 @@ const AppCustomization = () => {
         },
       });
       console.log(response.data);
-    } catch (error) {
+    } catch (error) {n
       console.error(error);
     }
   };
