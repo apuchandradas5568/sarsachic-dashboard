@@ -1,4 +1,4 @@
-// import React, { useState, useEffect } from "react";
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./AddProducts.css";
@@ -95,7 +95,7 @@ const AddProducts = () => {
     event.preventDefault();
 
     try {
-      // Upload images to Cloudinary
+      // Uploading images to Cloudinary
       const uploadedImages = [];
       for (const image of productData.images) {
         const formData = new FormData();
@@ -116,10 +116,10 @@ const AddProducts = () => {
         images: uploadedImages,
       };
     
-  // Log product data with URLs to console
+  
   console.log("Product data with image URLs:", productDataWithImages);
 
-      // // Send product data to backend
+     // Sending product data to backend
       const response = await axios.post(
         "http://localhost:8000/api/v1/products/add",
         productDataWithImages,
@@ -132,7 +132,7 @@ const AddProducts = () => {
 
       console.log("Product added:", response.data);
 
-      // Reset form
+      // Reset form after submitting
       setProductData({
         name: "",
         description: "",
