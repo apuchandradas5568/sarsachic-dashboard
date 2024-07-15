@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./AddProducts.css";
+import useAxiosPublic from "../hooks/useAxios";
 
 const categoriesData = [
   { id: "men", name: "Men" },
@@ -34,6 +35,7 @@ const AddProducts = () => {
   const [categories] = useState(categoriesData);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [attributes, setAttributes] = useState({});
+  const axios = useAxiosPublic()
   const [productData, setProductData] = useState({
     name: "",
     description: "",
@@ -92,7 +94,8 @@ const AddProducts = () => {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
+
 
     try {
       // Uploading images to Cloudinary
@@ -157,6 +160,7 @@ const AddProducts = () => {
     } catch (error) {
       console.error("Error adding product:", error);
     }
+
   };
 
   return (
