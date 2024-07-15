@@ -1,45 +1,11 @@
-import React, { useState } from 'react';
-
-const users = 
-[
-  {
-    email: "avdheshkumar41237@gmail.com",
-    productsOrdered: 5
-  },
-  {
-    email: "johndoe@example.com",
-    productsOrdered: 10
-  },
-  {
-    email: "janedoe@example.com",
-    productsOrdered: 15
-  },
-  {
-    email: "alice@example.com",
-    membership: "Inactive",
-    productsOrdered: 3
-  },
-  {
-    email: "bob@example.com",
-    productsOrdered: 8
-  },
-  {
-    email: "charlie@example.com",
-    productsOrdered: 12
-  },
-  {
-    email: "david@example.com",
-    productsOrdered: 7
-  },
-  {
-    email: "eve@example.com",
-    productsOrdered: 6
-  }
-];
+import React, { useEffect, useState } from 'react';
+import useAxiosPublic from '../../../sarsa-skleton/src/hooks/useAxios';
 
 const ManageUsers = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(3); // Adjust the number of users per page here
+  const axios = useAxiosPublic();
+  const [users,setUsers] = useState([]);
 
   // Logic for displaying users
   const indexOfLastUser = currentPage * usersPerPage;
@@ -49,6 +15,36 @@ const ManageUsers = () => {
   // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
+  // fetch data from backend
+  const fetchAllUsers = async () =>{
+    try{
+      const response = await axios.get('/admin/manage-users')
+      const userData = response.data.data.users
+      setUsers(userData);
+    }
+    catch(error){
+      console.log('An error is occurred during getting the info of users');
+    }
+  }
+  useEffect(() => {
+    fetchAllUsers();
+  },[])
+  
+  const deleteUserData = async (userId) => {
+     try{
+        const response = await axios.post('/admin/delete-single-user',{
+            userId
+        })
+        if(response.data && response.data.success){
+          fetchAllUsers();
+        }else{
+          console.log("An error is occurred while fetching the users");
+        }
+     }
+     catch(error){
+      console.log("An error is occurred while deleting the user");
+     }
+  }
   return (
     <>
       <section className="mx-auto w-full max-w-7xl px-4 py-4">
@@ -108,9 +104,9 @@ const ManageUsers = () => {
                               <option value="silver">Silver</option>
                             </select>
                         </td>
-                        <td className="px-4 py-3 text-left text-sm font-normal text-gray-700">{user.productsOrdered}</td>
+                        <td className="px-4 py-3 text-left text-sm font-normal text-gray-700">{5}</td>
                         <td className="px-4 py-3 text-left">
-                          <button>
+                          <button onClick={()=>deleteUserData(user._id)}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
                               <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                             </svg>
