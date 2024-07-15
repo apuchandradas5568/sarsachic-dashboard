@@ -3,7 +3,7 @@ import useAxiosPublic from '../../../sarsa-skleton/src/hooks/useAxios';
 
 const ManageUsers = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [usersPerPage] = useState(3); // Adjust the number of users per page here
+  const [usersPerPage] = useState(4); // Adjust the number of users per page here
   const axios = useAxiosPublic();
   const [users,setUsers] = useState([]);
 
